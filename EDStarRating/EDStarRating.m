@@ -305,6 +305,12 @@
     CGPoint touchLocation = [touch locationInView:self];
     self.rating =[self starsForPoint:touchLocation];
     [self setNeedsDisplay];
+    
+    if( self.delegate && [self.delegate respondsToSelector:@selector(starsSelectionChanged:rating:)] )
+        [self.delegate starsSelectionChanged:self rating:self.rating];
+    
+    if( self.returnBlock)
+        self.returnBlock(self.rating);
 }
 #endif
 
@@ -346,6 +352,6 @@
     
     if( self.returnBlock)
         self.returnBlock(self.rating);
-    
 }
+
 @end
